@@ -2,22 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import tasks from './tasks'
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Tasks" component={tasks} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
-
-function Home({navigation}) {
+export default function Home({ navigation }) {
   const [userType, setUserType] = useState('');
 
   const handleUserTypeChange = (type) => {
@@ -26,10 +14,12 @@ function Home({navigation}) {
 
   const handleEnterAppPress = () => {
     // Implemente aqui a navegação para a próxima tela do aplicativo
-    navigation.navigate('Tasks')
+    alert(`Bem-vindo, ${userType}!`);
+    navigation.navigate('SegundaTela');
   }
 
   return (
+  <NavigationContainer>
     <View style={styles.container}>
       <Text style={styles.title}>Bem-vindo ao Task Every Day!</Text>
       <Text style={styles.subtitle}>Você é professor ou aluno?</Text>
@@ -58,9 +48,9 @@ function Home({navigation}) {
         </View>
       ) : null}
     </View>
+  </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

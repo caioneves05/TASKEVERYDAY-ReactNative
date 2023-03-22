@@ -3,7 +3,6 @@ import { Button, Input, ListItem, Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-
 const Task = ({ task, onDelete, onView }) => {
     const handlePress = () => {
       onView(task);
