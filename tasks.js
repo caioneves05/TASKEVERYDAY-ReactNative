@@ -56,6 +56,7 @@ export default function Tasks() {
     };
   
     return (
+    <View style={styles.view}>
       <SafeAreaView>
         <ScrollView>
           <Input
@@ -93,11 +94,20 @@ export default function Tasks() {
           <Button title='Close' onPress={closeModal} buttonStyle={styles.modalCloseButton} />
         </Modal>
       </SafeAreaView>
+      </View>
     );
 };
 
 
 const styles = StyleSheet.create({
+    view: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 10,
+      backgroundColor: '#4e395d'
+    },
     inputContainer: {
       width: 300,
       marginBottom: 16,
