@@ -12,7 +12,7 @@ export default function Home({ navigation }) {
     setUserType(type);
   }
 
-  const handleEnterAppPress = () => {
+  const handleEnterAppPress = async () => {
     // Implemente aqui a navegação para a próxima tela do aplicativo
     alert(`Bem-vindo, ${userType}!`);
     navigation.navigate('SegundaTela');

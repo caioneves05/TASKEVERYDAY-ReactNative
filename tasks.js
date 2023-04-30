@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button, Input, ListItem, Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import  create   from './services/tasks.js'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Task = ({ task, onDelete, onView }) => {
     const handlePress = () => {
@@ -26,18 +28,25 @@ export default function Tasks() {
     const [selectedTask, setSelectedTask] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
   
-    const handleAddTask = () => {
+    const handleAddTask = async () => {
+
       if(title.trim() !== '' || description.trim() !== ''){
         const newTask = {
-          id: Math.random(),
+          id: Math.floor(Math.random() * 10),
           title,
           description,
         };
-          setTasks([...tasks, newTask]);
-          setTitle('');
-          setDescription('');
+        setTasks([...tasks, newTask]);
+        setTitle('');
+        setDescription('');
+        //Com essa funcionalidade agora conseguimos ter o retorno das tarefas com o AsyncStorage.
+        try {
+          const tasksArray = [...tasks, newTask];
+          await AsyncStorage.setItem('minhasTarefas', JSON.stringify(tasksArray));
+        } catch (error) {
+          console.log(error);
+        }
       };
-  
     }
   
     const handleDeleteTask = (id) => {

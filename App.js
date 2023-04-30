@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import tasks from './tasks'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Stack = createStackNavigator();
 
@@ -24,9 +26,19 @@ function Home({navigation}) {
     setUserType(type);
   }
 
-  const handleEnterAppPress = () => {
+  const handleEnterAppPress = async () => {
     // Implemente aqui a navegação para a próxima tela do aplicativo
     navigation.navigate('Tasks')
+
+    try {
+      const tarefasSalvas = await AsyncStorage.getItem('minhasTarefas');
+      if (tarefasSalvas !== null) {
+        const tarefas = JSON.parse(tarefasSalvas);
+        console.log(tarefas); // Exibe as tarefas salvas no console
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
