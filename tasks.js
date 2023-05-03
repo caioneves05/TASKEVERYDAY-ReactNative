@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, ListItem, Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -6,6 +6,7 @@ import  create   from './services/tasks.js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Task = ({ task, onDelete, onView }) => {
+  
     const handlePress = () => {
       onView(task);
     };
@@ -22,11 +23,27 @@ const Task = ({ task, onDelete, onView }) => {
 };
   
 export default function Tasks() {
+
+  
+
     const [tasks, setTasks] = useState([]);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [selectedTask, setSelectedTask] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+  
+    useEffect(()=>{
+      try {
+        AsyncStorage.getItem('minhasTarefas').then((data)=>{
+          if (data !== null) {
+            setTasks(JSON.parse(data));
+          }
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    },[])
   
     const handleAddTask = async () => {
 
